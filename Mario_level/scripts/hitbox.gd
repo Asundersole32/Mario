@@ -1,4 +1,5 @@
 extends Area2D
 
 func _on_body_entered(body):
-	pass
+		if body.name == "mario":
+		body.velocity.y = body.JUMP_VELOCITY

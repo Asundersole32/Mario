@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 
-const SPEED = 10.0
+var SPEED := 10.0
 const JUMP_VELOCITY = -400.0
 
 @onready var wall_detector := $wall_detector as RayCast2D
@@ -25,3 +25,14 @@ func _physics_process(delta):
 	velocity.x = direction * SPEED
 
 	move_and_slide()
+
+
+
+func _on_anim_animation_finished(anim_name):
+	if anim_name == "hurt":
+		queue_free()
+
+
+func _on_anim_animation_started(anim_name):
+	if anim_name == "hurt":
+		SPEED = 0.0
