@@ -10,6 +10,8 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 var is_jumping := false
 var direction
 @onready var animation := $anim as AnimatedSprite2D
+@onready var right := $right_detector as RayCast2D
+@onready var left := $left_detector as RayCast2D
 
 func _physics_process(delta):
 	# Add the gravity.
@@ -46,3 +48,24 @@ func _set_state():
 	
 	if animation.name != state:
 		animation.play(state)
+
+
+func _on_head_collider_body_entered(body):
+	if body.has_method("destroy_block"):
+		body.destroy_block()
+		
+	if body.has_method("create"):
+		if body.hitpoints == 1:
+			body.hitpoints -= 1
+			body.create()
+		
+		
+
+
+func _on_hurtbox_body_entered(body):
+	if left.is_colliding():
+		print("left")
+		queue_free()
+	elif right.is_colliding():
+		print("right")
+		queue_free()

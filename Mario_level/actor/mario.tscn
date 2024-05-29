@@ -1,12 +1,9 @@
-[gd_scene load_steps=12 format=3 uid="uid://cbf7rsn3yg4ml"]
+[gd_scene load_steps=14 format=3 uid="uid://cbf7rsn3yg4ml"]
 
 [ext_resource type="Script" path="res://scripts/mario.gd" id="1_cqc73"]
 [ext_resource type="Texture2D" uid="uid://cfyl34hgcg1ft" path="res://assets/Mario/mario_idle.png" id="2_8m1d2"]
 [ext_resource type="Texture2D" uid="uid://doqmy50eyedqk" path="res://assets/Mario/mario_jump.png" id="3_6bivr"]
 [ext_resource type="Texture2D" uid="uid://hrx3iry58yc3" path="res://assets/Mario/mario_running.png" id="4_qdc1t"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1f1x"]
-size = Vector2(14, 15.75)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5msnw"]
 atlas = ExtResource("2_8m1d2")
@@ -61,12 +58,19 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3bpxr"]
+size = Vector2(10, 2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g1f1x"]
+size = Vector2(12, 11.875)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yucvt"]
+size = Vector2(14, 15)
+
 [node name="mario" type="CharacterBody2D"]
 position = Vector2(0, -8)
+collision_mask = 62
 script = ExtResource("1_cqc73")
-
-[node name="collision" type="CollisionShape2D" parent="."]
-shape = SubResource("RectangleShape2D_g1f1x")
 
 [node name="camera" type="Camera2D" parent="."]
 zoom = Vector2(2, 2)
@@ -82,3 +86,38 @@ autoplay = "idle"
 
 [node name="animator" type="AnimationPlayer" parent="."]
 root_node = NodePath("../anim")
+
+[node name="head_collider" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="head_collision" type="CollisionShape2D" parent="head_collider"]
+position = Vector2(0, -7)
+shape = SubResource("RectangleShape2D_3bpxr")
+
+[node name="right_detector" type="RayCast2D" parent="."]
+position = Vector2(-7, 0)
+target_position = Vector2(-5, 0)
+collision_mask = 8
+hit_from_inside = true
+
+[node name="left_detector" type="RayCast2D" parent="."]
+position = Vector2(7, 0)
+target_position = Vector2(5, 0)
+collision_mask = 8
+hit_from_inside = true
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1.9375)
+shape = SubResource("RectangleShape2D_g1f1x")
+
+[node name="hurtbox" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+position = Vector2(0, 0.5)
+shape = SubResource("RectangleShape2D_yucvt")
+debug_color = Color(1, 0, 0.117647, 0.419608)
+
+[connection signal="body_entered" from="head_collider" to="." method="_on_head_collider_body_entered"]
+[connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]

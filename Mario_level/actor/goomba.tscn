@@ -136,7 +136,7 @@ _data = {
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dn1cb"]
-size = Vector2(17, 3)
+size = Vector2(12, 3)
 
 [node name="goomba" type="CharacterBody2D"]
 collision_layer = 8
@@ -170,7 +170,7 @@ collision_layer = 32
 script = ExtResource("4_bcown")
 
 [node name="collision1" type="CollisionShape2D" parent="hitbox"]
-position = Vector2(-0.5, -17.5)
+position = Vector2(0, -18)
 shape = SubResource("RectangleShape2D_dn1cb")
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]

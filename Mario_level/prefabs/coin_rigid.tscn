@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://c882d41qoteh2"]
+
+[ext_resource type="Script" path="res://scripts/coin_rigid.gd" id="1_e8peo"]
+[ext_resource type="PackedScene" uid="uid://6vymythsof08" path="res://prefabs/coin.tscn" id="2_8adh6"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8hcts"]
+radius = 4.0
+height = 14.0
+
+[node name="coin_rigid" type="RigidBody2D"]
+collision_layer = 0
+collision_mask = 2
+lock_rotation = true
+script = ExtResource("1_e8peo")
+
+[node name="coin" parent="." instance=ExtResource("2_8adh6")]
+position = Vector2(0, -7)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
+shape = SubResource("CapsuleShape2D_8hcts")
+
+[connection signal="tree_exited" from="coin" to="." method="_on_coin_tree_exited"]

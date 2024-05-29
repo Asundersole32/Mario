@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://blayn3mdfc1sb"]
+
+[ext_resource type="Script" path="res://scripts/coin_box.gd" id="1_kfic6"]
+[ext_resource type="Texture2D" uid="uid://cm32gov3p6rn" path="res://assets/World/question_blocks.png" id="1_vupqx"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_8q80d"]
+size = Vector2(16, 16)
+
+[node name="coin_box" type="CharacterBody2D"]
+position = Vector2(0, -8)
+collision_layer = 2
+collision_mask = 0
+script = ExtResource("1_kfic6")
+
+[node name="texture" type="Sprite2D" parent="."]
+texture = ExtResource("1_vupqx")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_8q80d")
+
+[node name="spawn_coin" type="Marker2D" parent="."]

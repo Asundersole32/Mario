@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://l2x5xj5ujelw"]
+
+[ext_resource type="Script" path="res://scripts/shell.gd" id="1_48soe"]
+[ext_resource type="Texture2D" uid="uid://dj4u47f0awqxa" path="res://assets/Enemies/koopa_shell.png" id="1_qocd0"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_31bif"]
+radius = 8.0
+
+[node name="shell" type="CharacterBody2D"]
+script = ExtResource("1_48soe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(0, -6)
+texture = ExtResource("1_qocd0")
+
+[node name="collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -8)
+shape = SubResource("CircleShape2D_31bif")
+
+[node name="right_detector" type="RayCast2D" parent="."]
+position = Vector2(0, -8)
+target_position = Vector2(9, 0)
+
+[node name="left_detector" type="RayCast2D" parent="."]
+position = Vector2(0, -8)
+target_position = Vector2(-9, 0)

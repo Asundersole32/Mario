@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://cf75053lp3ll1"]
+
+[node name="invisible_block" type="CharacterBody2D"]
+
+[node name="collision" type="CollisionShape2D" parent="."]
+
+[node name="texture" type="Sprite2D" parent="."]
