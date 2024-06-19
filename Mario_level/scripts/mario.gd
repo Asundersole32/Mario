@@ -9,6 +9,7 @@ var gravity = ProjectSettings.get_setting("physics/2d/default_gravity")
 
 var is_jumping := false
 var direction
+var life_points := 1
 @onready var animation := $anim as AnimatedSprite2D
 @onready var right := $right_detector as RayCast2D
 @onready var left := $left_detector as RayCast2D
@@ -59,13 +60,15 @@ func _on_head_collider_body_entered(body):
 			body.hitpoints -= 1
 			body.create()
 		
-		
-
-
 func _on_hurtbox_body_entered(body):
 	if left.is_colliding():
-		print("left")
-		queue_free()
+		if body.name == "koopa" or body.name == "goomba":
+			life_points -= 1
+			if life_points == 0:
+				queue_free()
 	elif right.is_colliding():
-		print("right")
-		queue_free()
+		if body.name == "koopa" or body.name == "goomba":
+			life_points -= 1
+			if life_points == 0:
+				queue_free()
+		
