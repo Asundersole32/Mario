@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://p4xp1ql0d6sr"]
+
+[ext_resource type="Script" path="res://scripts/underground_coin.gd" id="1_cyy4q"]
+[ext_resource type="Texture2D" uid="uid://hktlm2glgxi2" path="res://assets/Sprites/Coin_Underground.png" id="1_td8a3"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hyrec"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_td8a3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_2vx2n"]
+radius = 6.0
+height = 18.0
+
+[node name="underground_coin" type="Area2D"]
+script = ExtResource("1_cyy4q")
+
+[node name="texture" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_hyrec")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_2vx2n")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

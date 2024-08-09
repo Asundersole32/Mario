@@ -19,14 +19,18 @@ func _physics_process(delta):
 
 	if left_collision.is_colliding():
 		if left_collision.get_collider().name == "mario":
-			SPEED = 100.0
+			SPEED = 200.0
 			direction = 1
+			set_collision_layer_value(0, false)
+			set_collision_layer_value(4, true)
 		else:
 			direction *= -1
 	elif right_collision.is_colliding():
 		if right_collision.get_collider().name == "mario":
-			SPEED = 100.0
+			SPEED = 200.0
 			direction = -1
+			set_collision_layer_value(0, false)
+			set_collision_layer_value(4, true)
 		else:
 			direction *= -1
 		

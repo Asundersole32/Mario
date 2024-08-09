@@ -1,0 +1,20 @@
+[gd_scene load_steps=4 format=3 uid="uid://dokf3v7dsxdd2"]
+
+[ext_resource type="Texture2D" uid="uid://bkn0hh5xj85ws" path="res://assets/World/finish_pole_start.png" id="1_0msqk"]
+[ext_resource type="Script" path="res://scripts/finish_pole.gd" id="1_hdoi0"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vq010"]
+size = Vector2(26, 169)
+
+[node name="finish_pole" type="Area2D"]
+script = ExtResource("1_hdoi0")
+
+[node name="collisor" type="CollisionShape2D" parent="."]
+position = Vector2(4, -0.5)
+shape = SubResource("RectangleShape2D_vq010")
+
+[node name="texture" type="Sprite2D" parent="."]
+position = Vector2(4, 0)
+texture = ExtResource("1_0msqk")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

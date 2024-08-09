@@ -5,9 +5,6 @@
 [ext_resource type="Texture2D" uid="uid://c7y0pu1mwwmws" path="res://assets/Enemies/goomba_death.png" id="2_iphqh"]
 [ext_resource type="Script" path="res://scripts/goomba_hitbox.gd" id="4_bcown"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_8lykb"]
-radius = 9.0
-
 [sub_resource type="Animation" id="Animation_rrxwc"]
 length = 0.001
 tracks/0/type = "value"
@@ -135,12 +132,15 @@ _data = {
 "walk": SubResource("Animation_ugua6")
 }
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_kd41j"]
+radius = 9.0
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dn1cb"]
-size = Vector2(12, 3)
+size = Vector2(16, 2.75)
 
 [node name="goomba" type="CharacterBody2D"]
 collision_layer = 8
-collision_mask = 2
+collision_mask = 258
 script = ExtResource("1_42s7q")
 
 [node name="texture" type="Sprite2D" parent="."]
@@ -148,10 +148,6 @@ position = Vector2(0, -8)
 scale = Vector2(1.125, 1.16827)
 texture = ExtResource("1_jti7y")
 hframes = 2
-
-[node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, -10)
-shape = SubResource("CircleShape2D_8lykb")
 
 [node name="anim" type="AnimationPlayer" parent="."]
 libraries = {
@@ -165,13 +161,21 @@ position = Vector2(0, -9)
 target_position = Vector2(-10, 0)
 collision_mask = 10
 
+[node name="world_collision" type="CollisionShape2D" parent="."]
+position = Vector2(0, -9)
+shape = SubResource("CircleShape2D_kd41j")
+
 [node name="hitbox" type="Area2D" parent="."]
 collision_layer = 32
 script = ExtResource("4_bcown")
 
 [node name="collision1" type="CollisionShape2D" parent="hitbox"]
-position = Vector2(0, -18)
+position = Vector2(0, -17.625)
 shape = SubResource("RectangleShape2D_dn1cb")
+
+[node name="back_detector" type="RayCast2D" parent="."]
+position = Vector2(0, -9)
+target_position = Vector2(10, 0)
 
 [connection signal="animation_finished" from="anim" to="." method="_on_anim_animation_finished"]
 [connection signal="animation_started" from="anim" to="." method="_on_anim_animation_started"]

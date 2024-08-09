@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=3 uid="uid://l2x5xj5ujelw"]
+[gd_scene load_steps=6 format=3 uid="uid://l2x5xj5ujelw"]
 
 [ext_resource type="Script" path="res://scripts/shell.gd" id="1_48soe"]
 [ext_resource type="Texture2D" uid="uid://dj4u47f0awqxa" path="res://assets/Enemies/koopa_shell.png" id="1_qocd0"]
+[ext_resource type="Script" path="res://scripts/shell_hitbox.gd" id="3_v0px0"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_31bif"]
 radius = 8.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_w6by6"]
+size = Vector2(12, 3)
 
 [node name="shell" type="CharacterBody2D"]
 script = ExtResource("1_48soe")
@@ -26,3 +30,12 @@ collision_mask = 11
 position = Vector2(0, -8)
 target_position = Vector2(-9, 0)
 collision_mask = 11
+
+[node name="hitbox" type="Area2D" parent="."]
+script = ExtResource("3_v0px0")
+
+[node name="collisor1" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, -15)
+shape = SubResource("RectangleShape2D_w6by6")
+
+[connection signal="body_entered" from="hitbox" to="hitbox" method="_on_body_entered"]

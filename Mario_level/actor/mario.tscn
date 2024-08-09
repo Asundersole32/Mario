@@ -1,9 +1,20 @@
-[gd_scene load_steps=14 format=3 uid="uid://cbf7rsn3yg4ml"]
+[gd_scene load_steps=25 format=3 uid="uid://cbf7rsn3yg4ml"]
 
 [ext_resource type="Script" path="res://scripts/mario.gd" id="1_cqc73"]
 [ext_resource type="Texture2D" uid="uid://cfyl34hgcg1ft" path="res://assets/Mario/mario_idle.png" id="2_8m1d2"]
+[ext_resource type="Texture2D" uid="uid://ct8uqpacoxaq1" path="res://assets/Sprites/Mario_Big_Idle.png" id="2_b8q4q"]
 [ext_resource type="Texture2D" uid="uid://doqmy50eyedqk" path="res://assets/Mario/mario_jump.png" id="3_6bivr"]
+[ext_resource type="Texture2D" uid="uid://c3njnoy5owfh3" path="res://assets/Sprites/Mario_Big_Jump.png" id="3_anj44"]
 [ext_resource type="Texture2D" uid="uid://hrx3iry58yc3" path="res://assets/Mario/mario_running.png" id="4_qdc1t"]
+[ext_resource type="Texture2D" uid="uid://dvnr77h30cjn6" path="res://assets/Sprites/Mario_Big_Run1.png" id="4_r410j"]
+[ext_resource type="Texture2D" uid="uid://biwgmc04ug3tt" path="res://assets/Sprites/Mario_Big_Run2.png" id="5_v2l3k"]
+[ext_resource type="Texture2D" uid="uid://cxxi757iq1gnv" path="res://assets/Sprites/Mario_Big_Run3.png" id="6_0ftjk"]
+[ext_resource type="Texture2D" uid="uid://4axg8se7m40x" path="res://assets/Sprites/Mario_Shooting_Idle.png" id="7_o48vc"]
+[ext_resource type="Texture2D" uid="uid://ugx1dv5u8m74" path="res://assets/Sprites/Mario-Shooting.png" id="8_av3y6"]
+[ext_resource type="Texture2D" uid="uid://d3i8ain3y4vfj" path="res://assets/Sprites/Mario_Shooting_Jump.png" id="8_wumbn"]
+[ext_resource type="Texture2D" uid="uid://bsfrxav8x3dot" path="res://assets/Sprites/Mario_Shooting_Run1.png" id="9_sjrfx"]
+[ext_resource type="Texture2D" uid="uid://cipjmquw1tlrv" path="res://assets/Sprites/Mario_Shooting_Run2.png" id="10_n51l8"]
+[ext_resource type="Texture2D" uid="uid://daqnle02fss6v" path="res://assets/Sprites/Mario_Shooting_Run3.png" id="11_2v0vy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5msnw"]
 atlas = ExtResource("2_8m1d2")
@@ -27,6 +38,66 @@ region = Rect2(108, 0, 18, 15)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_0anh0"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_b8q4q")
+}],
+"loop": true,
+"name": &"big_mario_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_anj44")
+}],
+"loop": true,
+"name": &"big_mario_jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_r410j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_v2l3k")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_0ftjk")
+}],
+"loop": true,
+"name": &"big_mario_run",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_o48vc")
+}],
+"loop": true,
+"name": &"fire_mario_idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_wumbn")
+}],
+"loop": true,
+"name": &"fire_mario_jump",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_sjrfx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_n51l8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_2v0vy")
+}],
+"loop": true,
+"name": &"fire_mario_run",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_5msnw")
@@ -56,13 +127,21 @@ animations = [{
 "loop": true,
 "name": &"run",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_av3y6")
+}],
+"loop": false,
+"name": &"shooting",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3bpxr"]
-size = Vector2(8, 2)
+size = Vector2(4, 2)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g1f1x"]
-size = Vector2(12, 11.875)
+size = Vector2(12, 14)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yucvt"]
 size = Vector2(14, 15)
@@ -71,13 +150,6 @@ size = Vector2(14, 15)
 position = Vector2(0, -8)
 collision_mask = 62
 script = ExtResource("1_cqc73")
-
-[node name="camera" type="Camera2D" parent="."]
-zoom = Vector2(2, 2)
-limit_left = 0
-limit_smoothed = true
-position_smoothing_enabled = true
-position_smoothing_speed = 6.0
 
 [node name="anim" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_0anh0")
@@ -88,36 +160,61 @@ autoplay = "idle"
 root_node = NodePath("../anim")
 
 [node name="head_collider" type="Area2D" parent="."]
-collision_mask = 2
+collision_mask = 130
 
 [node name="head_collision" type="CollisionShape2D" parent="head_collider"]
 position = Vector2(0, -7)
 shape = SubResource("RectangleShape2D_3bpxr")
 
-[node name="right_detector" type="RayCast2D" parent="."]
-position = Vector2(-7, 0)
-target_position = Vector2(-5, 0)
-collision_mask = 8
-hit_from_inside = true
-
-[node name="left_detector" type="RayCast2D" parent="."]
-position = Vector2(7, 0)
-target_position = Vector2(5, 0)
-collision_mask = 8
-hit_from_inside = true
-
 [node name="collision" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1.9375)
+position = Vector2(0, 1)
 shape = SubResource("RectangleShape2D_g1f1x")
 
 [node name="hurtbox" type="Area2D" parent="."]
-collision_layer = 0
-collision_mask = 8
+collision_layer = 64
+collision_mask = 26
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hurtbox"]
+[node name="hurt_collision" type="CollisionShape2D" parent="hurtbox"]
 position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_yucvt")
 debug_color = Color(1, 0, 0.117647, 0.419608)
+
+[node name="left" type="RayCast2D" parent="."]
+position = Vector2(7, 0)
+target_position = Vector2(9, 0)
+collision_mask = 8
+hit_from_inside = true
+
+[node name="right" type="RayCast2D" parent="."]
+position = Vector2(-7, 0)
+target_position = Vector2(-9, 0)
+collision_mask = 8
+hit_from_inside = true
+
+[node name="up" type="RayCast2D" parent="."]
+position = Vector2(0, -7)
+rotation = 3.14159
+target_position = Vector2(0, 9)
+collision_mask = 8
+hit_from_inside = true
+
+[node name="down" type="RayCast2D" parent="."]
+position = Vector2(0, 2)
+target_position = Vector2(0, 9)
+collision_mask = 16
+
+[node name="invunerability_timer" type="Timer" parent="."]
+wait_time = 0.8
+one_shot = true
+
+[node name="shot_position" type="Marker2D" parent="."]
+position = Vector2(8, -13)
+
+[node name="shooting_timer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="remote" type="RemoteTransform2D" parent="."]
 
 [connection signal="body_entered" from="head_collider" to="." method="_on_head_collider_body_entered"]
 [connection signal="body_entered" from="hurtbox" to="." method="_on_hurtbox_body_entered"]
